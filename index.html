@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Tor Browser for Android</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1A1A1A;
+    }
+    
+    .phone-frame {
+      border-radius: 0.5rem;
+      background: #000000;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.3), 0 4px 6px -4px rgba(255, 255, 255, 0.3);
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease, filter 0.6s ease;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .phone-frame.active {
+      box-shadow: 0 14px 28px -3px rgba(255, 255, 255, 0.5), 0 8px 20px -4px rgba(255, 255, 255, 0.4), 0 12px 48px rgba(255, 255, 255, 0.5);
+    }
+
+    .gallery-container {
+      perspective: 1200px;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .gallery-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(107, 70, 193, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-arrow:hover {
+      background: rgba(107, 70, 193, 0.8);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .nav-arrow.left { left: -22px; }
+    .nav-arrow.right { right: -22px; }
+
+    .gallery-dots {
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    @media (max-width: 480px) {
+      .gallery-dots {
+        bottom: -22px;
+        gap: 6px;
+      }
+      .gallery-dot {
+        width: 6px;
+        height: 6px;
+      }
+    }
+
+    .gallery-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .gallery-dot.active {
+      background: rgba(255, 255, 255, 0.9);
+      transform: scale(1.3);
+    }
+    
+    .architecture-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+    
+    .btn-primary {
+      transition: all 0.2s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    
+    
+    .android-icon-bg {
+      background: rgba(107, 70, 193, 0.3);
+      backdrop-filter: blur(10px);
+    }
+    
+    .onion-rings {
+      opacity: 0.15;
+      background-image: repeating-radial-gradient(
+        circle at 50% 50%,
+        transparent 0,
+        transparent 10px,
+        rgba(255, 255, 255, 0.3) 10px,
+        rgba(255, 255, 255, 0.3) 12px
+      );
+    }
+
+    .donation-btn {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .donation-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.95);
+      transform: translateY(-1px);
+    }
+
+    .donation-btn:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    .phone-frame-size {
+      width: 200px;
+    }
+
+    @media (max-width: 480px) {
+      .phone-frame-size {
+        width: 140px;
+      }
+    }
+
+    @media (min-width: 481px) and (max-width: 640px) {
+      .phone-frame-size {
+        width: 160px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-arrow {
+        width: 36px;
+        height: 36px;
+      }
+      .nav-arrow.left { left: -8px; }
+      .nav-arrow.right { right: -8px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-white antialiased overflow-x-hidden">
+
+  <div class="container mx-auto px-4 sm:px-6 py-8 sm:py-12 lg:py-20 min-h-screen flex flex-col items-center justify-center gap-6 sm:gap-8 lg:gap-10">
+    
+    <!-- Top Content -->
+    <div class="w-full max-w-md flex flex-col items-center">
+      
+      <!-- App Icon -->
+      <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden mb-4 sm:mb-6 border-2 border-white/30 shadow-lg shadow-white/30">
+        <img src="https://i.postimg.cc/6QYLgS6p/3B51536C-86C3-4334-8D64-0D4669657264.jpg" alt="Encrypted Chat App Icon" class="w-full h-full object-cover">
+      </div>
+      
+      <!-- Heading -->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 leading-tight">
+        Encrypted<br>Chat App.
+      </h1>
+      
+      <!-- Subheading -->
+      <p class="text-base sm:text-lg text-center mb-6 sm:mb-8 text-white font-light leading-relaxed">
+        Protect yourself against tracking, surveillance, and censorship.
+      </p>
+      
+      <!-- Download Buttons Grid -->
+      <div class="w-full space-y-3 mb-6">
+        
+        <!-- aarch64 -->
+        <button class="btn-primary w-full bg-white text-black font-semibold py-3 px-4 rounded-md flex items-center justify-center gap-2 hover:bg-gray-100">
+          <span>DOWNLOAD NOW</span>
+        </button>
+        
+        
+        
+      </div>
+      
+      
+      
+      
+      
+    </div>
+    
+    <!-- Phone Gallery Carousel Row -->
+    <div class="flex-shrink-0 relative" id="galleryWrapper" style="width: min(460px, 90vw); height: clamp(320px, 85vw, 450px);">
+      
+      <div class="gallery-container">
+        <div class="gallery-track" id="galleryTrack">
+
+          <!-- Phone 1 -->
+          <div class="phone-frame absolute phone-frame-size aspect-[9/17.5] overflow-hidden" data-index="0" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            <img src="https://i.postimg.cc/vHVhT3hp/Screenshot-2026-05-24-215257.png" alt="Encrypted Chat App Screenshot" class="w-full h-full object-cover object-top pointer-events-none">
+          </div>
+
+          <!-- Phone 2 -->
+          <div class="phone-frame absolute phone-frame-size aspect-[9/17.5] overflow-hidden" data-index="1" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            <img src="https://i.postimg.cc/pT1DsFVR/Screenshot-20260524-215841-Chat-Vault-(2).jpg" alt="Encrypted Chat App Screenshot" class="w-full h-full object-cover object-top pointer-events-none">
+          </div>
+
+          <!-- Phone 3 -->
+          <div class="phone-frame absolute phone-frame-size aspect-[9/17.5] overflow-hidden" data-index="2" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            <img src="https://i.postimg.cc/RVHdhXG5/Screenshot-2026-05-24-215815.png" alt="Encrypted Chat App Screenshot" class="w-full h-full object-cover object-top pointer-events-none">
+          </div>
+
+          <!-- Phone 4 -->
+          <div class="phone-frame absolute phone-frame-size aspect-[9/17.5] overflow-hidden" data-index="3" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            <img src="https://i.postimg.cc/DyX60B53/Screenshot-2026-05-24-215550.png" alt="Encrypted Chat App Screenshot" class="w-full h-full object-cover object-top pointer-events-none">
+          </div>
+
+          <!-- Phone 5 -->
+          <div class="phone-frame absolute phone-frame-size aspect-[9/17.5] overflow-hidden" data-index="4" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            <img src="https://i.postimg.cc/fT9CyBCG/Screenshot-2026-05-24-215706.png" alt="Encrypted Chat App Screenshot" class="w-full h-full object-cover object-top pointer-events-none">
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button class="nav-arrow left" id="prevBtn">
+        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+      </button>
+      <button class="nav-arrow right" id="nextBtn">
+        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Dots -->
+      <div class="gallery-dots" id="galleryDots">
+        <div class="gallery-dot active" data-index="0"></div>
+        <div class="gallery-dot" data-index="1"></div>
+        <div class="gallery-dot" data-index="2"></div>
+        <div class="gallery-dot" data-index="3"></div>
+        <div class="gallery-dot" data-index="4"></div>
+      </div>
+
+    </div>
+
+    <!-- Donations Row -->
+    <div class="w-full max-w-md mt-2">
+      <p class="text-center text-white/40 text-2xl font-medium uppercase tracking-widest mb-3">Support · Tap to copy</p>
+      <div class="flex flex-wrap justify-center gap-2" id="donationBtns">
+        <button class="donation-btn" data-address="bc1q7xctn97fzwzstlj6nvn5x86x8ls7pzpjwyzgd8">
+          <span class="text-yellow-400">₿</span> Bitcoin
+        </button>
+        <button class="donation-btn" data-address="4U4DZ7VDsdCmkRZqk9Nbs24HRxsWQZrn6BSVNonYHXTB">
+          <span class="text-purple-400">◎</span> Solana
+        </button>
+        <button class="donation-btn" data-address="0x4a3420E733aD7083AF736Add7Eb783438F7780DD">
+          <span class="text-blue-400">Ξ</span> Ethereum
+        </button>
+        <button class="donation-btn" data-address="0x4a3420E733aD7083AF736Add7Eb783438F7780DD">
+          <span class="text-violet-400">⬡</span> Polygon
+        </button>
+        <button class="donation-btn" data-address="0xd63e3b596d455fb16e09d831ec9668cae9adde98af0d025802f995978a411aed">
+          <span class="text-cyan-400">〜</span> Sui
+        </button>
+        <button class="donation-btn" data-address="0x4a3420E733aD7083AF736Add7Eb783438F7780DD">
+          <span class="text-blue-300">⬡</span> Base
+        </button>
+      </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="copyToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white text-black text-sm font-medium px-4 py-2 rounded-full shadow-lg opacity-0 pointer-events-none transition-all duration-300" style="z-index:9999;">
+      Address copied!
+    </div>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // Donation copy-to-clipboard
+    document.querySelectorAll('.donation-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const address = btn.dataset.address;
+        navigator.clipboard.writeText(address).then(() => {
+          const toast = document.getElementById('copyToast');
+          toast.textContent = `${btn.textContent.trim()} address copied!`;
+          toast.classList.remove('opacity-0');
+          toast.classList.add('opacity-100');
+          setTimeout(() => {
+            toast.classList.remove('opacity-100');
+            toast.classList.add('opacity-0');
+          }, 1800);
+        });
+      });
+    });
+
+    // Gallery Carousel
+    (function() {
+      const phones = document.querySelectorAll('#galleryTrack .phone-frame');
+      const dots = document.querySelectorAll('.gallery-dot');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const wrapper = document.getElementById('galleryWrapper');
+      let currentIndex = 2; // Start on middle phone
+      const total = phones.length;
+
+      function getResponsiveValues() {
+        const vw = window.innerWidth;
+        if (vw <= 380) {
+          return { translateX: 80, translateZ: 50, rotateY: 8, scaleStep: 0.18, opacityStep: 0.4, farDist: 300 };
+        } else if (vw <= 480) {
+          return { translateX: 90, translateZ: 60, rotateY: 10, scaleStep: 0.17, opacityStep: 0.38, farDist: 350 };
+        } else if (vw <= 640) {
+          return { translateX: 110, translateZ: 70, rotateY: 11, scaleStep: 0.16, opacityStep: 0.36, farDist: 400 };
+        } else {
+          return { translateX: 130, translateZ: 80, rotateY: 12, scaleStep: 0.15, opacityStep: 0.35, farDist: 500 };
+        }
+      }
+
+      function updateGallery() {
+        const rv = getResponsiveValues();
+        phones.forEach((phone, i) => {
+          phone.classList.remove('active');
+          const offset = i - currentIndex;
+          const absOffset = Math.abs(offset);
+
+          if (absOffset > 2) {
+            phone.style.transform = `translate(-50%, -50%) scale(0.4) translateX(${offset > 0 ? rv.farDist : -rv.farDist}px)`;
+            phone.style.opacity = '0';
+            phone.style.zIndex = '0';
+            phone.style.filter = 'blur(4px)';
+          } else {
+            const translateX = offset * rv.translateX;
+            const translateZ = -absOffset * rv.translateZ;
+            const scale = 1 - absOffset * rv.scaleStep;
+            const opacity = 1 - absOffset * rv.opacityStep;
+            const rotateY = offset * -rv.rotateY;
+
+            phone.style.transform = `translate(-50%, -50%) translateX(${translateX}px) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
+            phone.style.opacity = opacity;
+            phone.style.zIndex = 10 - absOffset;
+            phone.style.filter = absOffset > 0 ? `blur(${absOffset * 1.5}px)` : 'none';
+          }
+
+          if (i === currentIndex) {
+            phone.classList.add('active');
+          }
+        });
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentIndex);
+        });
+      }
+
+      window.addEventListener('resize', updateGallery);
+
+      function goTo(index) {
+        currentIndex = ((index % total) + total) % total;
+        updateGallery();
+      }
+
+      prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+      nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          goTo(parseInt(dot.dataset.index));
+        });
+      });
+
+      // Swipe support
+      let startX = 0;
+      let isDragging = false;
+
+      wrapper.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+      }, { passive: true });
+
+      wrapper.addEventListener('touchmove', (e) => {
+        // prevent scrolling while swiping on gallery
+      }, { passive: true });
+
+      wrapper.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) goTo(currentIndex + 1);
+          else goTo(currentIndex - 1);
+        }
+        isDragging = false;
+      }, { passive: true });
+
+      // Mouse drag support
+      let mouseStartX = 0;
+      let mouseDragging = false;
+
+      wrapper.addEventListener('mousedown', (e) => {
+        mouseStartX = e.clientX;
+        mouseDragging = true;
+        e.preventDefault();
+      });
+
+      window.addEventListener('mouseup', (e) => {
+        if (!mouseDragging) return;
+        const diff = mouseStartX - e.clientX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) goTo(currentIndex + 1);
+          else goTo(currentIndex - 1);
+        }
+        mouseDragging = false;
+      });
+
+      // Keyboard support
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') goTo(currentIndex - 1);
+        if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+      });
+
+      updateGallery();
+    })();
+  </script>
+<script src="https://deepsite.hf.co/deepsite-badge.js"></script>
+</body>
+</html>
