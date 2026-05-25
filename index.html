@@ -220,6 +220,11 @@
         <button class="btn-primary w-full bg-white text-black font-semibold py-3 px-4 rounded-md flex items-center justify-center gap-2 hover:bg-gray-100">
           <span>DOWNLOAD NOW</span>
         </button>
+
+        <!-- Virus Total Report Link -->
+        <a href="https://www.virustotal.com/gui/file/3f53c7f3fbe7b4be463f38498d1b2973c6b631c0e70686ec45a18e791d4e0a70/detection" target="_blank" rel="noopener noreferrer" class="block w-full text-center py-2 px-4 rounded-md border border-green-500/30 bg-green-500/10 text-green-400 text-sm font-semibold hover:bg-green-500/20 hover:border-green-500/50 transition-all duration-200">
+          VIRUS TOTAL REPORT - NO VIRUSES
+        </a>
         
         
         
@@ -286,7 +291,7 @@
 
     <!-- Donations Row -->
     <div class="w-full max-w-md mt-2">
-      <p class="text-center text-white/40 text-2xl font-medium uppercase tracking-widest mb-3">Support · Tap to copy</p>
+      <p class="text-center text-white/40 text-xl font-medium uppercase tracking-widest mb-3">Support · Tap to copy</p>
       <div class="flex flex-wrap justify-center gap-2" id="donationBtns">
         <button class="donation-btn" data-address="bc1q7xctn97fzwzstlj6nvn5x86x8ls7pzpjwyzgd8">
           <span class="text-yellow-400">₿</span> Bitcoin
@@ -306,6 +311,124 @@
         <button class="donation-btn" data-address="0x4a3420E733aD7083AF736Add7Eb783438F7780DD">
           <span class="text-blue-300">⬡</span> Base
         </button>
+      </div>
+
+      <!-- Support Email -->
+      <div class="w-full mt-5 flex justify-center">
+        <button id="supportEmailBtn" class="flex items-center justify-center gap-2 text-white/50 hover:text-white/80 text-sm font-medium transition-all duration-200 cursor-pointer">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          blackchat@atomicmail.io
+          <i data-lucide="copy" class="w-3.5 h-3.5 opacity-50"></i>
+        </button>
+      </div>
+
+      <!-- TOS / PP Button -->
+      <div class="w-full mt-3 flex justify-center">
+        <button id="tosBtn" class="flex items-center justify-center gap-1.5 text-white/40 hover:text-white/70 text-xs font-medium tracking-wide uppercase transition-all duration-200 cursor-pointer">
+          <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+          TOS / PP
+        </button>
+      </div>
+    </div>
+
+    <!-- TOS Popup Modal -->
+    <div id="tosModal" class="fixed inset-0 z-[10000] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" id="tosOverlay"></div>
+      <!-- Modal Content -->
+      <div class="relative bg-[#1A1A1A] border border-white/15 rounded-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto p-6 sm:p-8 shadow-2xl transform scale-95 transition-transform duration-300" id="tosContent">
+        <button id="tosClose" class="absolute top-4 right-4 text-white/40 hover:text-white/80 transition-colors cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+        <h2 class="text-xl sm:text-2xl font-bold text-white mb-1">Terms of Service / Privacy Policy</h2>
+        <p class="text-white/30 text-xs mb-5">Last Updated: May 2026</p>
+        <div class="text-white/70 text-sm leading-relaxed space-y-4">
+          <p>Welcome to <strong class="text-white/90">BLACK CHAT</strong>.</p>
+          <p>BLACK CHAT is a privacy-focused encrypted messaging platform designed for anonymous communication.</p>
+          <p>By using BLACK CHAT, you agree to these Terms and Privacy Policy.</p>
+
+          <h3 class="text-white/90 font-semibold text-base mt-6">Absolute Privacy</h3>
+          <p>BLACK CHAT is built around anonymity and minimal data collection.</p>
+          <p>We do <strong class="text-white/90">NOT</strong> collect:</p>
+          <ul class="list-disc list-inside space-y-1 text-white/60 ml-2">
+            <li>IP addresses</li>
+            <li>phone numbers</li>
+            <li>real names</li>
+            <li>contacts</li>
+            <li>GPS location</li>
+            <li>microphone recordings</li>
+            <li>camera access without permission</li>
+            <li>device contacts</li>
+            <li>browsing history</li>
+            <li>SMS messages</li>
+            <li>clipboard data</li>
+            <li>biometric data</li>
+            <li>advertising identifiers</li>
+            <li>social media accounts</li>
+          </ul>
+          <p>We do not sell user data to advertisers or third parties.</p>
+
+          <h3 class="text-white/90 font-semibold text-base mt-6">Registration</h3>
+          <p>You are not required to use your real identity.</p>
+          <p>You may register using:</p>
+          <ul class="list-disc list-inside space-y-1 text-white/60 ml-2">
+            <li>anonymous usernames</li>
+            <li>secondary email addresses</li>
+            <li>privacy-focused email providers</li>
+          </ul>
+          <p>We recommend using:</p>
+          <ul class="list-disc list-inside space-y-1 text-white/60 ml-2">
+            <li>Proton Mail</li>
+            <li>Atomic Mail</li>
+            <li>or a separate Google account used only for BLACK CHAT</li>
+          </ul>
+          <p>Please avoid temporary email services (temp mails).</p>
+          <p>If you lose access to your account and used a disposable email, we may not be able to help recover it.</p>
+
+          <h3 class="text-white/90 font-semibold text-base mt-6">Encrypted Messaging</h3>
+          <p>BLACK CHAT provides encrypted private messaging.</p>
+          <p>We do not read your chats and we do not have access to your private conversations.</p>
+          <p>Users are responsible for:</p>
+          <ul class="list-disc list-inside space-y-1 text-white/60 ml-2">
+            <li>who they communicate with</li>
+            <li>what they share</li>
+            <li>how they use the platform</li>
+          </ul>
+          <p>Please be careful online.</p>
+
+          <h3 class="text-white/90 font-semibold text-base mt-6">User Responsibility</h3>
+          <p>BLACK CHAT is designed for privacy, not illegal activity.</p>
+          <p>Users may not:</p>
+          <ul class="list-disc list-inside space-y-1 text-white/60 ml-2">
+            <li>share illegal content</li>
+            <li>distribute malware</li>
+            <li>scam other users</li>
+            <li>harass or threaten people</li>
+            <li>violate laws</li>
+          </ul>
+          <p>Anonymous usage does not remove personal legal responsibility.</p>
+
+          <h3 class="text-white/90 font-semibold text-base mt-6">Liability</h3>
+          <p>Because BLACK CHAT does not access private chats, we cannot monitor all user activity.</p>
+          <p>By using the platform, you understand that:</p>
+          <ul class="list-disc list-inside space-y-1 text-white/60 ml-2">
+            <li>you use BLACK CHAT at your own risk</li>
+            <li>we are not responsible for user interactions</li>
+            <li>we are not liable for damages caused by third parties</li>
+            <li>we cannot recover lost encrypted messages</li>
+          </ul>
+
+          <h3 class="text-white/90 font-semibold text-base mt-6">Security</h3>
+          <p>We take reasonable steps to protect the platform and user privacy.</p>
+          <p>However, no system can guarantee 100% security.</p>
+
+          <h3 class="text-white/90 font-semibold text-base mt-6">Changes</h3>
+          <p>These Terms and Policies may change over time.</p>
+          <p>Continued use of BLACK CHAT means you accept future updates.</p>
+
+          <h3 class="text-white/90 font-semibold text-base mt-6">Contact</h3>
+          <p><a href="mailto:blackchat@atomicmail.io" class="text-purple-400 hover:text-purple-300 underline underline-offset-2 transition-colors">blackchat@atomicmail.io</a></p>
+        </div>
       </div>
     </div>
 
@@ -335,6 +458,58 @@
         });
       });
     });
+
+    // Support email copy-to-clipboard
+    document.getElementById('supportEmailBtn').addEventListener('click', () => {
+      const email = 'blackchat@atomicmail.io';
+      navigator.clipboard.writeText(email).then(() => {
+        const toast = document.getElementById('copyToast');
+        toast.textContent = 'Support email copied!';
+        toast.classList.remove('opacity-0');
+        toast.classList.add('opacity-100');
+        setTimeout(() => {
+          toast.classList.remove('opacity-100');
+          toast.classList.add('opacity-0');
+        }, 1800);
+      });
+    });
+
+    // TOS Modal
+    (function() {
+      const modal = document.getElementById('tosModal');
+      const content = document.getElementById('tosContent');
+      const openBtn = document.getElementById('tosBtn');
+      const closeBtn = document.getElementById('tosClose');
+      const overlay = document.getElementById('tosOverlay');
+
+      function openModal() {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100');
+        content.classList.remove('scale-95');
+        content.classList.add('scale-100');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0');
+        content.classList.remove('scale-100');
+        content.classList.add('scale-95');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          modal.classList.add('pointer-events-none');
+        }, 300);
+      }
+
+      openBtn.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
+          closeModal();
+        }
+      });
+    })();
 
     // Gallery Carousel
     (function() {
